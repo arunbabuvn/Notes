@@ -1,11 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:notes/main.dart';
+import 'package:notes/services/firestore_service.dart';
 
-class DialogBox extends StatelessWidget {
-  const DialogBox({super.key});
+class DialogBox extends StatefulWidget {
+  var titleController;
+  var descriptionController;
+
+  DialogBox({
+    super.key,
+    required this.titleController,
+    required this.descriptionController,
+  });
 
   @override
+  State<DialogBox> createState() => _DialogBoxState();
+}
+
+class _DialogBoxState extends State<DialogBox> {
+  @override
   Widget build(BuildContext context) {
+    final FireStoreService fireStoreService = FireStoreService();
+
+    onSave() {
+      setState(() {
+        fireStoreService.addNote(
+          widget.titleController.text,
+          widget.descriptionController.text,
+        );
+      });
+
+      widget.titleController.clear();
+      widget.descriptionController.clear();
+      context.pop();
+    }
+
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: AlertDialog(
@@ -19,7 +49,7 @@ class DialogBox extends StatelessWidget {
                 const Text("Title"),
                 const Gap(10),
                 TextField(
-                  scrollPadding: const EdgeInsets.only(bottom: 30),
+                  controller: widget.titleController,
                   minLines: 1,
                   maxLines: 2,
                   decoration: InputDecoration(
@@ -34,10 +64,10 @@ class DialogBox extends StatelessWidget {
                   ),
                 ),
                 Gap(MediaQuery.sizeOf(context).height * 0.029),
-                const Text("Discription"),
+                const Text("Description"),
                 Gap(MediaQuery.sizeOf(context).height * 0.016),
                 TextField(
-                  scrollPadding: const EdgeInsets.only(bottom: 30),
+                  controller: widget.descriptionController,
                   minLines: 1,
                   maxLines: 3,
                   decoration: InputDecoration(
@@ -47,7 +77,7 @@ class DialogBox extends StatelessWidget {
                     ),
                     fillColor: const Color.fromARGB(103, 179, 179, 179),
                     filled: true,
-                    hintText: "Discription",
+                    hintText: "Description",
                   ),
                 ),
                 Gap(MediaQuery.sizeOf(context).height * 0.029),
@@ -62,7 +92,12 @@ class DialogBox extends StatelessWidget {
                     ),
                     Gap(MediaQuery.sizeOf(context).height * 0.029),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.titleController.text.isNotEmpty &&
+                                widget.descriptionController.text.isNotEmpty
+                            ? onSave()
+                            : null;
+                      },
                       child: const Text("Save"),
                     ),
                   ],

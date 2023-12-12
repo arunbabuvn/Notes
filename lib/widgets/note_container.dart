@@ -3,8 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class NotesContainer extends StatelessWidget {
-  const NotesContainer(this.title, {super.key});
-  final String title;
+  NotesContainer({super.key, required this.title});
+  var title;
 
   @override
   Widget build(BuildContext context) {
