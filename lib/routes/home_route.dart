@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logger/logger.dart';
 import 'package:notes/services/firestore_service.dart';
+import 'package:notes/themes/text_theme.dart';
 import 'package:notes/widgets/dialog_box.dart';
 import 'package:notes/widgets/note_container.dart';
 
@@ -45,12 +46,7 @@ class _HomeRouteState extends State<HomeRoute> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Notes",
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
+                  Text("Notes", style: appbarTextTheme),
                   Hero(
                     tag: "searchTag",
                     child: Material(
@@ -97,7 +93,6 @@ class _HomeRouteState extends State<HomeRoute> {
                         itemCount: docs.length,
                         itemBuilder: (context, index) {
                           final title = docs[index]['title'];
-                          log.d(title);
                           return NotesContainer(
                             title: title,
                           );

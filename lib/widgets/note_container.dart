@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notes/themes/text_theme.dart';
 
 class NotesContainer extends StatelessWidget {
   NotesContainer({super.key, required this.title});
@@ -13,26 +14,28 @@ class NotesContainer extends StatelessWidget {
         InkWell(
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.sizeOf(context).height * 0.6),
-            padding: EdgeInsets.all(MediaQuery.sizeOf(context).width * 0.09),
+            height: MediaQuery.sizeOf(context).height * 0.1,
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.sizeOf(context).width * 0.09),
             width: MediaQuery.sizeOf(context).width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: const Color.fromARGB(103, 179, 179, 179),
             ),
-            child: Wrap(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: titleTextTheme,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
                 ),
               ],
             ),
           ),
-          onTap: () => context.goNamed("note"),
+          onTap: () => context.go("/note/$title"),
         ),
         const Gap(15),
       ],

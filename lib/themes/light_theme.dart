@@ -14,8 +14,4 @@ ThemeData lightTheme = ThemeData(
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: Color.fromARGB(103, 179, 179, 179),
   ),
-  textTheme: TextTheme(
-    headlineLarge: GoogleFonts.nunito(fontSize: 43),
-    bodyMedium: GoogleFonts.nunito(fontSize: 23),
-  ),
 );

@@ -21,10 +21,13 @@ final appRouter = GoRouter(
           },
         ),
         GoRoute(
-            path: "note",
+            path: "note/:title, :description",
             name: "note",
             builder: (context, state) {
-              return const NoteRoute();
+              return NoteRoute(
+                title: state.pathParameters['title']!,
+                description: state.pathParameters['description']!,
+              );
             }),
       ],
     ),

@@ -3,7 +3,9 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 class NoteRoute extends StatelessWidget {
-  const NoteRoute({super.key});
+  var title;
+  var description;
+  NoteRoute({super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
